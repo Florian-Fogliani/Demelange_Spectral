@@ -6,4 +6,6 @@ high_wave_number = 5000
 def plot_sig(signal):
     x, y = zip(*(signal.items()))
     plt.plot(x,y)
-    plt.show
+    plt.ylabel("Absorbance (a.u.)")
+    plt.xlabel("Wavenumber (cm⁻¹)")
+    plt.show()
