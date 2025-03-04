@@ -8,10 +8,13 @@ def atoi(str):
     try:
         return float(str)
     except ValueError:
-        raise valueError("Error in extracting data: string isn't a valid number.")
+        raise valueError(
+            "Error in extracting data: string isn't a valid number.")
+
 
 def wave_number_to_wave_length(n):
     return 1/n * 1e4
+
 
 def data_extract(path):
     file = open(path, "r")
@@ -24,5 +27,3 @@ def data_extract(path):
         if (wave_length >= low_wave_length and wave_length <= high_wave_length):
             signal[wave_length] = absorbance
     return signal
-
-
