@@ -1,23 +1,24 @@
 from extract import *
 from plot import *
+import numpy as np
 import re
 import os
 
 path = "signals/"
 
 
-def debug_print_dict(dictionnary):
+def debug(signal):
     """
-    This function is for debugging purpose, allow to print the signal dictionnary.
+    This function is for debugging purpose, allow to print the signal.
 
     Args:
-        dictionnairy (dictionnary): Dictionnary of signals.
+        signal (np.array): Signals represented by a two-dimensional arrays. First dimension is wave_length. Second dimension is absorbance(a.u.) 
 
     Returns:
         None
     """
-    for key, value in dictionnary.items():
-        print(f"{key} {value}")
+    for e in dictionnary:
+        print(f"{e}")
 
 
 def get_signals_of_dir():

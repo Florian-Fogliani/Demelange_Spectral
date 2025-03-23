@@ -1,5 +1,5 @@
-low_wave_number = 2000
-high_wave_number = 5000
+import numpy as np
+
 low_wave_length = 2
 high_wave_length = 5
 
@@ -18,12 +18,14 @@ def wave_number_to_wave_length(n):
 
 def data_extract(path):
     file = open(path, "r")
-    signal = {}
+    signal = []
     for line in file:
         data = line.strip().split()
         wave_number = atoi(data[0])
         wave_length = wave_number_to_wave_length(wave_number)
         absorbance = atoi(data[1])
         if (wave_length >= low_wave_length and wave_length <= high_wave_length):
-            signal[wave_length] = absorbance
-    return signal
+            signal.append([wave_length, absorbance])
+    result = np.array(signal)
+    sorted_indexes = np.argsort(result[:, 0])
+    return result[sorted_indexes]
