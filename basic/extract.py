@@ -1,15 +1,28 @@
-import numpy as np
+from basic.config import *
 
-low_wave_length = 2
-high_wave_length = 5
+
+def get_signals_of_dir(path):
+    """
+    This function is to get the signals files names present in the signals directory.
+
+    Args:
+        None
+
+    Returns:
+        None
+    """
+    signals_of_dir = os.listdir(path)
+    return signals_of_dir
 
 
 def atoi(str):
     try:
+        if (re.match("(-)+", str)):
+            return 0.0
         return float(str)
     except ValueError:
-        raise valueError(
-            "Error in extracting data: string isn't a valid number.")
+        raise ValueError(
+            "Error in extracting data: string " + str + " isn't a valid number.")
 
 
 def wave_number_to_wave_length(n):
@@ -29,3 +42,7 @@ def data_extract(path):
     result = np.array(signal)
     sorted_indexes = np.argsort(result[:, 0])
     return result[sorted_indexes]
+
+
+def interpolate(data):
+    return np.interp(graduation, data[:, 0], data[:, 1])
