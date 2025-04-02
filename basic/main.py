@@ -9,28 +9,49 @@ from dictionary import *
 def main():
     dic = SignalDictionary.create_dictionary(path)
     print(dic.labels)
-    melange = basic_mix(dic, [0.97, 0.66, 0.2, 0, 0.75, 0, 0, 0.54, 0, 0, 0])
 
-    melange = basic_randomization(melange)
-    plot_spectrum(melange)
+    # -----------------------WITHOUT RANDOM MIXING-----------------------
+    # Create mixing
+    conditions = [0.97, 0.66, 0.2, 0.42, 0.75,
+                  0.1233, 0.288, 0.54, 0.13, 0.2, 0.99]
+    mix = basic_mix(dic, conditions)
+    plot_spectrum(mix)
 
-    res = sp.optimize.lsq_linear(dic.data, melange)
+    # mix = basic_randomization(mix)
 
-    new_melange = np.matmul(dic.data, res.x)
-    plot_spectrum(new_melange)
+    # Doing least square
+    least_square = sp.optimize.lsq_linear(dic.data, mix)
+    reconstruct = np.matmul(dic.data, least_square.x)
+    plot_spectrum(reconstruct)
 
     plt.show()
-    return
 
-    sig = dic.data[0].data[:, 1]
-    print(sig)
-    dic_sig = np.tile(sig[:, np.newaxis], 1)
-    print(dic_sig)
+    # Plot bar difference between least_square and initial conditions
+    plot_differences(dic.labels, np.vectorize(lambda e: abs(e))
+                     (least_square.x - np.array(conditions)))
+    plt.show()
 
-    minim = sp.optimize.lsq_linear(dic_sig, sig)
+    # --------------------RANDOM MIXING--------------------
 
-    print(minim)
+    # Create mixing
+    conditions = [0.97, 0.66, 0.2, 0.42, 0.75,
+                  0.1233, 0.288, 0.54, 0.13, 0.2, 0.99]
+    mix = basic_mix(dic, conditions)
+    plot_spectrum(mix)
 
+    mix = basic_randomization(mix)
+
+    # Doing least square
+    least_square = sp.optimize.lsq_linear(dic.data, mix)
+    reconstruct = np.matmul(dic.data, least_square.x)
+    plot_spectrum(reconstruct)
+
+    plt.show()
+
+    # Plot bar difference between least_square and initial conditions
+    plot_differences(dic.labels, np.vectorize(lambda e: abs(e))
+                     (least_square.x - np.array(conditions)))
+    plt.show()
     return
 
 

@@ -37,13 +37,7 @@ def old_signals_sum(signal1, signal2):
 def basic_mix(dictionnary, conditions):
     if len(conditions) != len(dictionnary):
         raise ValueError('Conditions must have same length as dictionnary')
-    res = np.array([])
-    for idx, condition in enumerate(conditions):
-        if (condition != 0 and len(res) == 0):
-            res = condition*dictionnary[idx]
-        else:
-            res = res + condition * dictionnary[idx]
-    return res
+    return np.matmul(dictionnary.data, conditions)
 
 
 def basic_randomization(signal):

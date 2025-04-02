@@ -15,3 +15,11 @@ def plot_spectrum(spectrum):
     plt.plot(graduation, spectrum)
     plt.ylabel("Absorbance (a.u.)")
     plt.xlabel("Wavelength (µm)")
+
+
+def plot_differences(labels, difference):
+    plt.subplots(figsize=(8, 5))
+    plt.bar(labels, difference)
+    plt.ylabel(
+        "Absolute difference between the initial and final paremeters")
+    plt.xlabel("Signals labels")
