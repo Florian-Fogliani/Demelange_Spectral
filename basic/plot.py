@@ -21,5 +21,5 @@ def plot_differences(labels, difference):
     plt.subplots(figsize=(8, 5))
     plt.bar(labels, difference)
     plt.ylabel(
-        "Absolute difference between the initial and final paremeters")
+        "Difference between the initial and final paremeters")
     plt.xlabel("Signals labels")
