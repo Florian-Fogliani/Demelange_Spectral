@@ -1,6 +1,6 @@
-from basic.config import *
+from .config import *
 
-from extract import *
+from .extract import *
 
 
 @dataclass

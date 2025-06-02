@@ -1,4 +1,6 @@
-from basic.config import *
+from aid.config import *
+from aid.extract import get_signals_of_dir, data_extract
+from plot import plot_sig
 
 
 def print_signals_of_dir():

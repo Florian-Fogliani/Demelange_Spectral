@@ -1,4 +1,4 @@
-from basic.config import *
+from aid.config import *
 
 
 def get_signals_of_dir(path):
