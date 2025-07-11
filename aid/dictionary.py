@@ -1,6 +1,6 @@
-from .config import *
+from aid.config import *
 
-from .extract import *
+from aid.extract import *
 
 
 @dataclass
@@ -20,6 +20,25 @@ class SignalDictionary:
             data.append(interpolate(data_extract(path + sig)))
 
         return SignalDictionary(labels, np.transpose(data))
+
+    def getCollinearity(self):
+        n = len(self)
+        matrix = np.zeros((n, n))
+        for i in range(n):
+            for j in range(n):
+                xi = np.array(self[i])
+                xj = np.array(self[j])
+                if np.std(xi) == 0 or np.std(xj) == 0:
+                    matrix[i][j] = 0
+                else:
+                    matrix[i][j] = np.corrcoef(xi, xj)[0, 1]
+
+        header = "       " + " ".join(f"{label:>8}" for label in self.labels)
+        print(header)
+        for i, row in enumerate(matrix):
+            line = f"{self.labels[i]:>7} " + \
+                " ".join(f"{val:8.2f}" for val in row)
+            print(line)
 
     def __getitem__(self, key):
         if isinstance(key, int):

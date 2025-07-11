@@ -1,12 +1,19 @@
 from aid.config import *
-from extract import *
-from plot import *
-from mix import *
 from dictionary import *
+from plot import *
+
+
+def save_signals(dic, path):
+    for i in range(len(dic)):
+        plt.axis('off')
+        plt.plot(graduation, dic[i])
+        plt.savefig(path + "/" + dic.labels[i] + "(" + str(i) + ")" + ".png")
+        plt.clf()
 
 
 def main():
     dic = SignalDictionary.create_dictionary(path)
+    save_signals(dic, "../extracts")
     print(dic.labels)
     random.seed(132)
 
